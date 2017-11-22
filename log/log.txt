@@ -1,0 +1,7 @@
+21-11-2017 11:11:35|Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '7' in 'order clause'
+21-11-2017 11:14:24|Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '7' in 'order clause'
+21-11-2017 11:16:34|Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '8' in 'order clause'
+21-11-2017 11:16:43|Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '8' in 'order clause'
+21-11-2017 11:19:51|Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '8' in 'order clause'
+21-11-2017 11:20:49|Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '6' in 'order clause'
+21-11-2017 11:21:13|Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '5' in 'order clause'

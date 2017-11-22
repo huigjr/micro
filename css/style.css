@@ -1,0 +1,137 @@
+/*************************/
+/*      GENERAL CSS      */
+/*************************/
+
+*{
+  margin:0;
+  padding:0;
+  border:0;
+  box-sizing:border-box;
+}
+
+html{
+  font-family:Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif;
+  background:#efefef;
+}
+
+header{
+  background:#1fa3ef;
+}
+
+h1{
+  color:#fff;
+  padding:10px;
+}
+
+a{
+  text-decoration:none;
+}
+
+.btn{
+  color:#fff;
+  font-size:16px;
+  background:#ffb100;
+  margin:10px 0;
+  border-radius:8px;
+  padding:6px 18px;
+  text-shadow:1px 1px 0.5px #000;
+  transition:background 200ms ease-in-out;
+  cursor:pointer;
+}
+
+.btn:hover{
+  background:#ff1E00;
+}
+
+.content{
+  width:98%;
+  max-width:1200px;
+  background:#fff;
+  margin:10px auto;
+  padding:20px;
+}
+
+footer{
+  text-align:center;
+}
+/**************************/
+/*     NAVIGATION CSS     */
+/**************************/
+
+nav{
+  text-align:center;
+}
+
+nav ul li{
+  display:inline-block;
+  background:#ffb100;
+  margin:10px;
+  border-radius:8px;
+  transition:background 200ms ease-in-out;
+}
+
+nav ul li:hover{
+  background:#ff1E00;
+}
+
+nav ul li a{
+  color:#fff;
+  padding:0 18px;
+  line-height:32px;
+  text-shadow:1px 1px 0.5px #000;
+}
+
+/*************************/
+/*       INPUT CSS       */
+/*************************/
+
+input[type='text'],input[type='password']{
+  border:1px solid #aaa;
+  padding:5px;
+  margin:4px 0;
+  width:100%;
+}
+
+input[type='submit']{
+  background:#ffb100;
+  padding:8px;
+  color:#fff;
+  text-shadow:1px 1px 2px #000;
+  margin:4px 0;
+  width:100%;
+  border-radius:8px;
+  transition:all 300ms ease-in-out;
+}
+
+input[type='submit']:hover{
+  background:#ff1E00;
+}
+
+/*************************/
+/*       TABLE CSS       */
+/*************************/
+
+.tableblock{
+  width:100%;
+  max-width:800px;
+  margin:10px auto;
+  background:#fff;
+  padding:10px;
+  border-radius:12px;
+  box-shadow:1px 1px 2px 1px #aaa;
+}
+
+table{
+  width:100%;
+  text-align:left;
+  border-collapse:collapse;
+}
+
+td,th{
+  padding:4px;
+  border:1px solid #ddd;
+}
+
+tr:nth-child(odd){
+  background:#eee;
+}
