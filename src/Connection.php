@@ -1,5 +1,5 @@
 <?php
-class Connection{
+class Connection extends QueryBuilder{
 
   private $pdo;
   private $host;
@@ -34,6 +34,11 @@ class Connection{
     $statement = $this->prepareStatement($query);
     return $this->fetch($statement,'fetchall',$data);
   }
+  
+  public function getColumn($query,$data=null){
+    $statement = $this->prepareStatement($query);
+    return $this->fetch($statement,'fetchcolumn',$data);
+  }
 
   public function prepareStatement($query){
     if(is_null($this->pdo)) $this->connect();
@@ -53,6 +58,8 @@ class Connection{
         return true;
       } elseif($type=='fetchrow'){
         return $statement->fetch();
+      } elseif($type=='fetchcolumn'){
+        return $statement->fetchColumn();
       } elseif($type=='fetchclass'){
         $statement->setFetchMode(PDO::FETCH_CLASS,$class);
         return $statement->fetch();

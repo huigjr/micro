@@ -13,7 +13,7 @@ session_start();
 include 'config/config.php';
 
 // Autoload classes (includes not needed)
-spl_autoload_register(function($class){include ROOT_DIR.'/classes/'.strtolower($class).'.class.php';});
+spl_autoload_register(function($class){include ROOT_DIR.'/src/'.$class.'.php';});
 
 // Setup DB connection
 $db = new Connection(DB_HOST,DB_NAME,DB_USER,DB_PASS);
@@ -22,7 +22,7 @@ $db = new Connection(DB_HOST,DB_NAME,DB_USER,DB_PASS);
 $page = new Controller($db);
 
 // Start template engine and load template file
-$view = new Template('template/default/'.$page->template);
+$view = new Template('template/'.TEMPLATE.'/'.$page->template);
 
 // Transfer all page properties to template
 foreach(get_object_vars($page) as $key => $value) $view->$key = $value;

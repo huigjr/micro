@@ -10,6 +10,7 @@ class Controller{
     $count = count($_GET);
     $path = empty($_GET['path']) ? null : htmlentities($_GET['path'],ENT_QUOTES);
     $type = empty($_GET['type']) ? null : htmlentities($_GET['type'],ENT_QUOTES);
+    $type = $type == ADMIN_DIR ? 'admin' : $type;
     $this->base = str_replace((($path) ? $_GET['path'].'/' : ''),'',$_SERVER['REQUEST_URI']);
     if($count === 0) $array = $this->db->getRow("SELECT * FROM `pages` WHERE `url` = '/'");
     if($count === 1 && $path) $array = $this->db->getRow("SELECT * FROM `pages` WHERE `url` = '$path'");
@@ -17,7 +18,7 @@ class Controller{
     if(!empty($array)){
       foreach($array as $key => $value) $this->$key = $value;
     } else {
-      header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
+      http_response_code(404);
       echo '404 Not Found';
       exit;
     }

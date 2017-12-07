@@ -17,6 +17,10 @@ class Template{
 	}
 
 	public function __toString(){
+		return $this->getString();
+	}
+	
+	public function getString(){
 		extract($this->variables);
 		chdir(dirname($this->template));
 		ob_start();

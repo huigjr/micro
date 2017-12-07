@@ -19,4 +19,7 @@ define( 'ERROR_DOC' , ROOT_DIR.'/error.html' );
 
 // Define template
 define( 'TEMPLATE' , 'default' );
+
+// Define admin directory
+define( 'ADMIN_DIR' , 'beheer' );
 ?>
