@@ -33,7 +33,6 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `pageid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(64) DEFAULT NULL,
   `name` varchar(64) DEFAULT NULL,
-  `type` varchar(32) DEFAULT 'base',
   `template` varchar(32) DEFAULT NULL,
   `content` varchar(4096) DEFAULT NULL,
   `sequence` tinyint(3) unsigned DEFAULT '1',

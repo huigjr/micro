@@ -2,7 +2,6 @@
 class Controller{
 
   private $db;
-  protected $invalidtypes = array('base');
   public $base = '/';
 
   public function __construct(Connection $db){
@@ -14,7 +13,7 @@ class Controller{
     $this->base = str_replace((($path) ? $_GET['path'].'/' : ''),'',$_SERVER['REQUEST_URI']);
     if($count === 0) $array = $this->db->getRow("SELECT * FROM `pages` WHERE `url` = '/'");
     if($count === 1 && $path) $array = $this->db->getRow("SELECT * FROM `pages` WHERE `url` = '$path'");
-    if($count === 2 && $path && $type && (!in_array($type,$this->invalidtypes))){$array = $this->db->getRow("SELECT * FROM `pages` WHERE `url` = '$path' AND `type` = '$type'");}
+    if($count === 2 && $path && $type){$array = $this->db->getRow("SELECT * FROM `$type` WHERE `url` = '$path'");}
     if(!empty($array)){
       foreach($array as $key => $value) $this->$key = $value;
     } else {
@@ -27,7 +26,7 @@ class Controller{
   
   private function getNav(){
     $tab = "\t";
-    $nav = $this->db->getAll("SELECT `name`,`url` FROM `pages` WHERE `type` = 'base' ORDER BY `sequence`");
+    $nav = $this->db->getAll("SELECT `name`,`url` FROM `pages` ORDER BY `sequence`");
     $output = '<nav>'.PHP_EOL;
     $output .= $tab.'<ul>'.PHP_EOL;
     foreach($nav as $item){
