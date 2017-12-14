@@ -26,6 +26,21 @@ USE `micro`;
 -- --------------------------------------------------------
 
 --
+-- Tabelstructuur voor tabel `admin`
+--
+
+CREATE TABLE IF NOT EXISTS `admin` (
+  `pageid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `url` varchar(64) DEFAULT NULL,
+  `name` varchar(64) DEFAULT NULL,
+  `template` varchar(32) DEFAULT NULL,
+  `content` varchar(4096) DEFAULT NULL,
+  PRIMARY KEY (`pageid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `pages`
 --
 
@@ -35,7 +50,6 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `name` varchar(64) DEFAULT NULL,
   `template` varchar(32) DEFAULT NULL,
   `content` varchar(4096) DEFAULT NULL,
-  `sequence` tinyint(3) unsigned DEFAULT '1',
   PRIMARY KEY (`pageid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 

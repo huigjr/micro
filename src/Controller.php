@@ -14,19 +14,13 @@ class Controller{
     if($count === 0) $array = $this->db->getRow("SELECT * FROM `pages` WHERE `url` = '/'");
     if($count === 1 && $path) $array = $this->db->getRow("SELECT * FROM `pages` WHERE `url` = '$path'");
     if($count === 2 && $path && $type){$array = $this->db->getRow("SELECT * FROM `$type` WHERE `url` = '$path'");}
-    if(!empty($array)){
-      foreach($array as $key => $value) $this->$key = $value;
-    } else {
-      http_response_code(404);
-      echo '404 Not Found';
-      exit;
-    }
+    if(!empty($array)){ foreach($array as $key => $value) $this->$key = $value; } else { $this->return404(); }
     $this->nav = $this->getNav();
   }
-  
+
   private function getNav(){
     $tab = "\t";
-    $nav = $this->db->getAll("SELECT `name`,`url` FROM `pages` ORDER BY `sequence`");
+    $nav = $this->db->getAll("SELECT `name`,`url` FROM `pages`");
     $output = '<nav>'.PHP_EOL;
     $output .= $tab.'<ul>'.PHP_EOL;
     foreach($nav as $item){
@@ -37,5 +31,7 @@ class Controller{
     $output .= '</nav>'.PHP_EOL;
     return $output;
   }
+
+  private function return404(){http_response_code(404);echo '404 Not Found';exit;}
 }
 ?>
