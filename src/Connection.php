@@ -1,18 +1,32 @@
 <?php
-class Connection extends QueryBuilder{
+class Connection{
 
   private $pdo;
   private $host;
   private $dbname;
   private $username;
   private $password;
-  private $utf8_mode = true;
 
   public function __construct($host,$dbname,$username,$password){
     $this->host     = $host;
     $this->dbname   = $dbname;
     $this->username = $username;
     $this->password = $password;
+  }
+
+  public function beginTransaction(){
+    if(is_null($this->pdo)) $this->connect();
+    if(!$this->pdo->inTransaction()){
+      $this->pdo->beginTransaction();
+    } else throw new Exception("Previous transaction not closed properly");
+  }
+
+  public function commit(){
+    if($this->pdo->inTransaction()) $this->pdo->commit();
+  }
+
+  public function rollBack(){
+    if($this->pdo->inTransaction()) $this->pdo->rollBack();
   }
 
   public function dbWrite($query,$data=null){
@@ -34,7 +48,7 @@ class Connection extends QueryBuilder{
     $statement = $this->prepareStatement($query);
     return $this->fetch($statement,'fetchall',$data);
   }
-  
+
   public function getColumn($query,$data=null){
     $statement = $this->prepareStatement($query);
     return $this->fetch($statement,'fetchcolumn',$data);
@@ -70,16 +84,20 @@ class Connection extends QueryBuilder{
         return false;
       }
     }catch(PDOException $e){
+      $this->rollBack();
       $this->gracefulDie('Query failed: '.$e->getMessage());
     }
   }
 
   public function connect(){
     try {
-      $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->dbname",$this->username,$this->password);
-      $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-      if($this->utf8_mode) $this->pdo->exec("SET CHARACTER SET utf8");
+      $options = array(
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_ORACLE_NULLS => PDO::NULL_EMPTY_STRING,
+        PDO::ATTR_EMULATE_PREPARES => false,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+      );
+      $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->dbname;charset=utf8mb4",$this->username,$this->password,$options);
     } catch (PDOException $e) {
       $this->gracefulDie('Connection failed: '.$e->getMessage());
     }

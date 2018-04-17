@@ -1,37 +1,24 @@
 <?php
 class Controller{
 
-  private $db;
+  private $di;
   public $base = '/';
 
-  public function __construct(Connection $db){
-    $this->db = $db;
-    $count = count($_GET);
-    $path = empty($_GET['path']) ? null : htmlentities($_GET['path'],ENT_QUOTES);
-    $type = empty($_GET['type']) ? null : htmlentities($_GET['type'],ENT_QUOTES);
-    $type = $type == ADMIN_DIR ? 'admin' : $type;
-    $this->base = str_replace((($path) ? $_GET['path'].'/' : ''),'',$_SERVER['REQUEST_URI']);
-    if($count === 0) $array = $this->db->getRow("SELECT * FROM `pages` WHERE `url` = '/'");
-    if($count === 1 && $path) $array = $this->db->getRow("SELECT * FROM `pages` WHERE `url` = '$path'");
-    if($count === 2 && $path && $type){$array = $this->db->getRow("SELECT * FROM `$type` WHERE `url` = '$path'");}
+  public function __construct($di){
+    $this->di = $di;
+    $path = $this->parsePath();
+    $this->base = str_replace((isset($_GET['path']) ? $path[0].'/' : ''),'',$_SERVER['REQUEST_URI']);
+    if(count($path) === 1) $array = $this->di->get('Connection',array(DB_HOST,DB_NAME,DB_USER,DB_PASS))->getRow("SELECT * FROM `pages` WHERE `url` = '$path[0]'");
     if(!empty($array)){ foreach($array as $key => $value) $this->$key = $value; } else { $this->return404(); }
-    $this->nav = $this->getNav();
   }
 
-  private function getNav(){
-    $tab = "\t";
-    $nav = $this->db->getAll("SELECT `name`,`url` FROM `pages`");
-    $output = '<nav>'.PHP_EOL;
-    $output .= $tab.'<ul>'.PHP_EOL;
-    foreach($nav as $item){
-      $url = ($item['url'] == '/') ? '' : $item['url'];
-      $output .= $tab.$tab.'<li><a href="'.$url.'/">'.$item['name'].'</a></li>'.PHP_EOL;
-    }
-    $output .= $tab.'</ul>'.PHP_EOL;
-    $output .= '</nav>'.PHP_EOL;
-    return $output;
+  private function parsePath(){
+    if(isset($_GET['path'])){
+      $path = preg_replace('~[^a-zA-Z0-9-/]~u','',$_GET['path']) === $_GET['path'] ? $_GET['path'] : false;
+      if($path && substr($path,0,-1) === '/') return explode('/',substr($path,0,-1));
+    } else return array('/');
   }
 
-  private function return404(){http_response_code(404);echo '404 Not Found';exit;}
+  private function return404(){ header("HTTP/1.0 404 Not Found"); echo '404 Page Not Found'; exit; }
 }
 ?>

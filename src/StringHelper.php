@@ -26,5 +26,9 @@ class StringHelper{
     $title = preg_replace("/[\/_|+ -]+/", $separator, $title);
     return $title;
   }
+  
+  public function contains_any_multibyte($string){
+    return !mb_check_encoding($string, 'ASCII') && mb_check_encoding($string, 'UTF-8');
+  }
 }
 ?>

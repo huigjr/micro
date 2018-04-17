@@ -1,1 +1,0 @@
-14-12-2017 13:30:55|Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'sequence' in 'order clause'

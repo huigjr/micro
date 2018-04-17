@@ -1,0 +1,8 @@
+<div class="expressionblock" onclick="enlarge(this)">
+	<div class="expressionbody" style="background-image:url('/media/{background}')">
+		<p>{content}</p>
+	</div>
+	<div class="expressioninfo">
+		[IF:{own},0,<a href="ajax/ajax.php?heart={id}"><img src="media/img/heart-{heart}.png"> {count}</a>,<p><img src="media/img/heart-blue.png"> {count}</p>]
+	</div>
+</div>

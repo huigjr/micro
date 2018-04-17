@@ -1,9 +1,25 @@
 {
-	"require": {
-        "paycheckout/paycheckout-api-php": "^1.2.0.5"
+	"config": {
+        "platform": {
+            "php": "5.3.10"
+        }
     },
+    "name": "muldata/prototype",
+    "description": "Muldata prototype framework",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Huig",
+            "email": "huigjr@gmail.com"
+        }
+    ],
+    "minimum-stability": "alpha",
     "require-dev": {
-        "phpunit/phpunit": "^6.5"
+        "phpunit/phpunit": "*"
+    },
+    "require": {
+        "phpmailer/phpmailer": "*"
     },
 	"autoload": {
         "classmap": ["src/"],
@@ -13,7 +29,6 @@
         "classmap": ["tests/"]
     },
 	"suggest": {
-        "phpmailer/phpmailer": "Future email sending",
         "dompdf/dompdf": "Future PDF generation"
     }
 }
